@@ -30,7 +30,6 @@ def select_attachment():
 
     files = list()
     for f in file_path:
-        print(file_path)
         with open(f, 'rb') as file:
             file_data = file.read()
             file_type = imghdr.what(file.name)
@@ -44,12 +43,11 @@ def select_attachment():
 def send():
     EMAIL_ADRRESS = os.environ.get('GMAIL_BC_USER')
     EMAIL_PASSWORD = os.environ.get('GMAIL_BC_PASS')
-    EMAIL_TO = os.environ('OUTLOOK_USER')
 
     msg = EmailMessage()
     msg['Subject'] = 'test'
     msg['From'] = EMAIL_ADRRESS
-    msg['To'] = EMAIL_TO
+    msg['To'] = 'wes.kikken@outlook.com'
     msg.set_content('Image attached...')
 
     files = select_attachment()

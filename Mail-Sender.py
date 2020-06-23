@@ -47,7 +47,7 @@ def send():
     msg = EmailMessage()
     msg['Subject'] = 'test'
     msg['From'] = EMAIL_ADRRESS
-    msg['To'] = 'wes.kikken@outlook.com'
+    msg['To'] = '**INSERT EMAIL ADRESS HERE**'
     msg.set_content('Image attached...')
 
     files = select_attachment()

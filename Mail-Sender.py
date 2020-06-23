@@ -7,8 +7,11 @@ import imghdr
 
 
 def run():
-    select_attachment()
-    send()
+    files = select_attachment()
+    if len(files) != 0:
+        send()
+    else:
+        print("You didn't select any images, so no email was sent.")
 
     restart = input("Do you want to send more images? If so, typ 'yes': ").lower()
 
@@ -23,11 +26,12 @@ def select_attachment():
     frame = tk.Tk()
     frame.withdraw()
 
-    file_path = filedialog.askopenfilename()
+    file_path = filedialog.askopenfilenames()
 
     files = list()
     for f in file_path:
-        with open(file_path, 'rb') as file:
+        print(file_path)
+        with open(f, 'rb') as file:
             file_data = file.read()
             file_type = imghdr.what(file.name)
             file_sort = file.name
@@ -40,11 +44,12 @@ def select_attachment():
 def send():
     EMAIL_ADRRESS = os.environ.get('GMAIL_BC_USER')
     EMAIL_PASSWORD = os.environ.get('GMAIL_BC_PASS')
+    EMAIL_TO = os.environ('OUTLOOK_USER')
 
     msg = EmailMessage()
     msg['Subject'] = 'test'
     msg['From'] = EMAIL_ADRRESS
-    msg['To'] = 'wes.kikken@outlook.com'
+    msg['To'] = EMAIL_TO
     msg.set_content('Image attached...')
 
     files = select_attachment()
